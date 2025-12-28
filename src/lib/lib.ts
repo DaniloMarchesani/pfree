@@ -41,7 +41,7 @@ export const launchLsof = (port: Port): Promise<Pid[]> => {
       });
 
       lsof.on('close', (code) => {
-        if (code === 1) return Logger.warning(`No open processes found on port ${port}`), resolve([]);
+        if (code === 1) return Logger.warning(`No open processes found on port ${port}`), process.exit(0);
         
         if (code !== 0) {
           const errorMsg = Buffer.concat(stdErrChunks).toString() || `lsof process exited with code ${code}`;
